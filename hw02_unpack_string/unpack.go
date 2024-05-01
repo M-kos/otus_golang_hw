@@ -6,8 +6,10 @@ import (
 	"unicode"
 )
 
-var ErrInvalidString = errors.New("invalid string")
-var zeroRune rune = 48
+var (
+	ErrInvalidString      = errors.New("invalid string")
+	zeroRune         rune = 48
+)
 
 func Unpack(input string) (string, error) {
 	var result strings.Builder
