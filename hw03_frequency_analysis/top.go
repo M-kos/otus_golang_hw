@@ -29,10 +29,6 @@ func stringsCount(input string) map[string]int {
 	s := strings.Fields(input)
 
 	for _, v := range s {
-		if _, ok := result[v]; !ok {
-			result[v] = 0
-		}
-
 		result[v]++
 	}
 
