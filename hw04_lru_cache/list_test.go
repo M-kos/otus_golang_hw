@@ -43,9 +43,33 @@ func TestList(t *testing.T) {
 		l.MoveToFront(l.Back())  // [70, 80, 60, 40, 10, 30, 50]
 
 		elems := make([]int, 0, l.Len())
+
 		for i := l.Front(); i != nil; i = i.Next {
 			elems = append(elems, i.Value.(int))
 		}
+
 		require.Equal(t, []int{70, 80, 60, 40, 10, 30, 50}, elems)
+	})
+
+	t.Run("different types", func(t *testing.T) {
+		l := NewList()
+
+		l.PushFront(10)    // [10]
+		l.PushFront("abc") // ["abc, "10]
+		l.PushFront(true)  // [true, "abc, "10]
+		l.PushFront(4.5)   // [4.5, true, "abc, "10]
+
+		require.Equal(t, 4, l.Len())
+
+		l.Remove(l.Front()) // [true, "abc, "10]
+		require.Equal(t, 3, l.Len())
+
+		require.Equal(t, true, l.Front().Value)
+		require.Equal(t, 10, l.Back().Value)
+
+		l.MoveToFront(l.Back()) // [10, true, "abc"]
+
+		middle := l.Back().Prev
+		require.Equal(t, true, middle.Value)
 	})
 }
